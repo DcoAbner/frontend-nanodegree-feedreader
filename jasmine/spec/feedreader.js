@@ -36,7 +36,7 @@ $(function() {
          * has a URL that is not null or empty string ,and that it contains 'http'
          */
         it('all have a URL that is not empty', function() {
-            for (feed of allFeeds) {
+            for (let feed of allFeeds) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url).not.toBeNull();
                 expect(feed.url).not.toBe("");
@@ -55,7 +55,7 @@ $(function() {
          */
 
         it('all have a defined name that is not empty', function() {
-            for (feed of allFeeds) {
+            for (let feed of allFeeds) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name).not.toBeNull();
                 expect(feed.name).not.toBe('');
@@ -163,7 +163,7 @@ $(function() {
                console.log(newFeed.text);
                done();
 
-           })
+           });
         });
 
         it ('loads a new feed when clicked', function() {

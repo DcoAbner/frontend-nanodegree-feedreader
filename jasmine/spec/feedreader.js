@@ -80,70 +80,54 @@ $(function() {
         });
     });
 
-    // /* TODO: Write a new test suite named "Initial Entries" */
-    //
-    // describe('Initial Entries', function() {
-    //
-    //     /* TODO: Write a test that ensures when the loadFeed
-    //      * function is called and completes its work, there is at least
-    //      * a single .entry element within the .feed container.
-    //      * Remember, loadFeed() is asynchronous so this test will require
-    //      * the use of Jasmine's beforeEach and asynchronous done() function.
-    //      */
-    //
-    //     /**
-    //      * asynch test to ensure there is at least one child with the .entry class
-    //      * in the feed
-    //      */
-    //
-    //     let feed = $(".feed")[0];
-    //     beforeEach(function(done) {
-    //         loadFeed(1, done);
-    //     });
-    //     it("has at least one entry element", function(done) {
-    //         expect($(feed).find('.entry').length).toBeGreaterThan(0);
-    //         done();
-    //     });
-    //
-    // });
-    //
-    // /* TODO: Write a new test suite named "New Feed Selection" */
-    //
-    // describe('New Feed Selection', function() {
-    //
-    //     /* TODO: Write a test that ensures when a new feed is loaded
-    //      * by the loadFeed function that the content actually changes.
-    //      * Remember, loadFeed() is asynchronous.
-    //      */
-    //
-    //     /**
-    //      * loads 2 different feeds and compares the text of the first child element
-    //      * to see if identical
-    //      */
-    //
-    //     let originalFeed;
-    //     let newFeed;
-    //     beforeEach(function(done) {
-    //         $(".feed").empty();
-    //        loadFeed(0, function() {
-    //            originalFeed = $($(".feed")[0]).children()[0];
-    //            console.log(originalFeed.text);
-    //        });
-    //
-    //        loadFeed(1, function() {
-    //            newFeed = $($(".feed")[0]).children()[0];
-    //            console.log(newFeed.text);
-    //            done();
-    //
-    //        });
-    //     });
-    //
-    //     it ('loads a new feed when clicked', function() {
-    //
-    //         expect(newFeed.text).not.toBe(originalFeed.text);
-    //
-    //     });
-    //
-    // });
+    /**
+     * suite for testing load feed
+     */
+    describe('Initial Entries', function() {
+
+        /**
+         * asynch test to ensure there is at least one child with the .entry class
+         * in the feed
+         */
+
+        beforeEach(function(done) {
+            loadFeed(0, done);
+        });
+        it("has at least one entry element", function(done) {
+            expect($('.feed .entry').length).toBeGreaterThan(0);
+            done();
+        });
+
+    });
+
+    /**
+     * Test suite for new feed selection
+     */
+
+    describe('New Feed Selection', function() {
+
+        /**
+         * loads 2 different feeds and compares the html of each to see if identical;
+         */
+
+        let originalFeed;
+        let newFeed;
+        beforeEach(function(done) {
+           loadFeed(0, function() {
+               originalFeed = $('.feed').html();
+               loadFeed(1, function() {
+                   newFeed = $('.feed').html();
+                   done();
+               });
+           });
+        });
+
+        it ('loads a new feed when clicked', function() {
+
+            expect(newFeed).not.toBe(originalFeed);
+
+        });
+
+    });
 
 }());

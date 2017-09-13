@@ -20,84 +20,66 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-
         /**
          * This function loops through allFeeds and checks to make sure that each
          * has a URL that is defined based on truthiness and RegExp expression for HTTP validation;
-         * Uses RegExp provided by Diego Perini https://gist.github.com/dperini/729294, which is loaded locally
-         * in the regex-weburl.js file
+         * Uses RegExp provided by Diego Perini https://gist.github.com/dperini/729294, which is compressed into one
+         * line for Jasmine .toMatch
          */
         it('all have a URL that is not empty', function() {
             for (let feed of allFeeds) {
                 expect(feed.url).toBeTruthy();
-                expect(re_weburl.test(feed.url)).toBe(true);
+                expect(feed.url).toMatch(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i);
             }
         });
-    //
-    //     /* TODO: Write a test that loops through each feed
-    //      * in the allFeeds object and ensures it has a name defined
-    //      * and that the name is not empty.
-    //      */
-    //
-    //     /**
-    //      * loops through allFeeds and checks to ensure the name is present and not an
-    //      * empty string
-    //      */
-    //
-    //     it('all have a defined name that is not empty', function() {
-    //         for (let feed of allFeeds) {
-    //             expect(feed.name).toBeDefined();
-    //             expect(feed.name).not.toBeNull();
-    //             expect(feed.name).not.toBe('');
-    //         }
-    //     });
-    // });
-    //
-    //
-    // /* TODO: Write a new test suite named "The menu" */
-    //
-    // describe("The menu", function() {
-    //
-    //     let body = $("body");
-    //
-    //     /* TODO: Write a test that ensures the menu element is
-    //      * hidden by default. You'll have to analyze the HTML and
-    //      * the CSS to determine how we're performing the
-    //      * hiding/showing of the menu element.
-    //      */
-    //
-    //     /**
-    //      * menu is hidden by applying "menu-hidden" class to body;
-    //      * checks to make sure this class is present on <body>
-    //      */
-    //
-    //     it("element is hidden by default", function() {
-    //         expect($(body).hasClass("menu-hidden")).toBe(true);
-    //     });
-    //
-    //     /* TODO: Write a test that ensures the menu changes
-    //      * visibility when the menu icon is clicked. This test
-    //      * should have two expectations: does the menu display when
-    //      * clicked and does it hide when clicked again.
-    //      */
-    //
-    //     /**
-    //      * checks to see if the menu-hidden class is removed and
-    //      * then replaced on clicks of the menu-icon-link
-    //      */
-    //
-    //     it("toggles display when clicked", function() {
-    //
-    //         let menuIcon = $('.menu-icon-link')[0];
-    //
-    //         $(menuIcon).click();
-    //         expect($(body).hasClass('menu-hidden')).toBe(false);
-    //
-    //         $(menuIcon).click();
-    //         expect($(body).hasClass('menu-hidden')).toBe(true);
-    //     });
-    // });
-    //
+
+        /**
+         * loops through allFeeds and checks to ensure the name is present and not an
+         * empty string
+         */
+
+        it('all have a defined name that is not empty', function() {
+            for (let feed of allFeeds) {
+                expect(feed.name).toBeDefined();
+                expect(feed.name).not.toBeNull();
+                expect(feed.name).not.toBe('');
+            }
+        });
+    });
+
+    /**
+     * testing suite for the menu element
+     */
+    describe("The menu", function() {
+
+        let body = $("body");
+
+        /**
+         * menu is hidden by applying "menu-hidden" class to body;
+         * checks to make sure this class is present on <body>
+         */
+
+        it("element is hidden by default", function() {
+            expect(body.hasClass("menu-hidden")).toBe(true);
+        });
+
+        /**
+         * checks to see if the menu-hidden class is removed and
+         * then replaced on clicks of the menu-icon-link
+         */
+
+        it("toggles display when clicked", function() {
+
+            let menuIcon = $('.menu-icon-link');
+
+            menuIcon.click();
+            expect(body.hasClass('menu-hidden')).toBe(false);
+
+            menuIcon.click();
+            expect(body.hasClass('menu-hidden')).toBe(true);
+        });
+    });
+
     // /* TODO: Write a new test suite named "Initial Entries" */
     //
     // describe('Initial Entries', function() {
@@ -162,6 +144,6 @@ $(function() {
     //
     //     });
     //
-    });
+    // });
 
 }());
